@@ -61,32 +61,6 @@
     // Display the prayer when the page loads
     document.getElementById('prayer-display').textContent = getRandomPrayer();
 
-    
-    // List of food items with nutritional values
-    // const foodDatabase = {
-    //     "Apple": { calories: 95, fat: 0.3, protein: 0.5 },
-    //     "Banana": { calories: 105, fat: 0.4, protein: 1.3 },
-    //     "Bread": { calories: 79, fat: 1, protein: 3 },
-    //     "Rice": { calories: 206, fat: 0.4, protein: 4.3 },
-    //     "Chicken": { calories: 165, fat: 3.6, protein: 31 },
-    //     "Milk": { calories: 103, fat: 2.4, protein: 8 },
-    //     "Egg": { calories: 78, fat: 5, protein: 6 }
-    // };
-
-    // // Function to analyze food and display the nutritional info
-    // document.getElementById('food-form').addEventListener('submit', function(event) {
-    //     event.preventDefault(); // Prevent form submission
-        
-    //     const foodInput = document.getElementById('food-input').value.trim();
-    //     const foodInfo = document.getElementById('food-info');
-        
-    //     if (foodDatabase[foodInput]) {
-    //         const food = foodDatabase[foodInput];
-    //         foodInfo.textContent = `Calories: ${food.calories}, Fat: ${food.fat}g, Protein: ${food.protein}g`;
-    //     } else {
-    //         foodInfo.textContent = "Food item not found in the database.";
-    //     }
-    // });
 
     
     // Function to fetch and display food nutritional info
@@ -374,3 +348,52 @@
     // Event listener for the button
     drinkWaterBtn.addEventListener('click', drinkWater);
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const reminderForm = document.getElementById('medicine-reminder-form');
+        const reminderList = document.getElementById('reminder-list');
+        const reminderSound = new Audio('sounds/reminder-sound.mp3'); // Add your reminder sound file here
+    
+        let reminders = [];
+    
+        // Function to add reminder to the list
+        reminderForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const medicineName = document.getElementById('medicine-name').value;
+            const reminderTime = document.getElementById('reminder-time').value;
+    
+            const reminderItem = document.createElement('li');
+            reminderItem.textContent = `${medicineName} at ${reminderTime}`;
+            reminderList.appendChild(reminderItem);
+    
+            reminders.push({
+                name: medicineName,
+                time: reminderTime
+            });
+    
+            // Clear the form fields after submission
+            reminderForm.reset();
+        });
+    
+        // Check if the reminder time has reached
+        function checkReminder() {
+            const currentTime = new Date().toLocaleTimeString('en-GB', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+    
+            reminders.forEach(reminder => {
+                if (reminder.time === currentTime) {
+                    alert(`It's time to take your medicine: ${reminder.name}`);
+                    reminderSound.play(); // Play the reminder sound
+                }
+            });
+        }
+    
+        // Check every minute for reminders
+        setInterval(checkReminder, 60000); // 60 seconds interval
+    });
+
+
+
+    
