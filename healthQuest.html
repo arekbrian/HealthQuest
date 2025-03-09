@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthQuest</title>
+    <style>
+        /* CSS from Step 2 (for layout and theme) */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fff0f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #ff69b4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .section {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+
+        .section h2 {
+            color: #ff69b4;
+        }
+
+        .audio-player {
+            margin: 20px 0;
+        }
+
+        .sleep-sounds-list button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .sleep-sounds-list button:hover {
+            background-color: #ff1493;
+        }
+
+        footer {
+            background-color: #ff69b4;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>HealthQuest</h1>
+        <nav>
+            <a href="#sleep-sounds">Sleep Sounds</a>
+            <a href="#medicine-reminders">Medicine Reminders</a>
+            <a href="#daily-quotes">Daily Quotes</a>
+            <a href="#hydration-tracker">Hydration Tracker</a>
+        </nav>
+        <div id="gochyu" style="margin-top: 20px;">
+            <img src="https://via.placeholder.com/150" alt="Gochyu - Virtual Nurse">
+            <p>Hello! I’m Gochyu, your virtual nurse. How can I assist you today?</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sleep Sounds Section -->
+        <div class="section" id="sleep-sounds">
+            <h2>Sleep Sounds</h2>
+            <p>Relax with our soothing sleep sounds.</p>
+
+            <!-- Audio Player -->
+            <div class="audio-player">
+                <audio id="sleep-audio" controls>
+                    <source src="your-sound-file.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Sleep Sounds List -->
+            <div class="sleep-sounds-list">
+                <button onclick="playSound('sounds/rain.mp3')">Rain Sounds</button>
+                <button onclick="playSound('sounds/ocean-waves.mp3')">Ocean Waves</button>
+                <button onclick="playSound('sounds/white-noise.mp3')">White Noise</button>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 HealthQuest. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript from Step 5 (for controlling sounds) -->
+    <script>
+        function playSound(soundFile) {
+            var audio = document.getElementById('sleep-audio');
+            audio.src = soundFile;
+            audio.play();
+        }
+    </script>
+
+</body>
+</html>
