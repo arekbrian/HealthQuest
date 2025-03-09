@@ -5,35 +5,7 @@
         audio.play();
     }
 
-
-
-    document.getElementById('reminder-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const medicineName = document.getElementById('medicine-name').value;
-        const reminderTime = document.getElementById('reminder-time').value;
-        const reminderStatus = document.getElementById('reminder-status');
-
-        reminderStatus.textContent = `Reminder set for ${medicineName} at ${reminderTime}.`;
-
-        // Function to check if it's time for the reminder
-        function checkReminder() {
-            const currentTime = new Date();
-            const currentHours = String(currentTime.getHours()).padStart(2, '0');
-            const currentMinutes = String(currentTime.getMinutes()).padStart(2, '0');
-            const currentFormattedTime = `${currentHours}:${currentMinutes}`;
-
-            if (currentFormattedTime === reminderTime) {
-                alert(`It's time to take your medicine: ${medicineName}`);
-                reminderStatus.textContent = ''; // Reset the reminder status after alert
-                clearInterval(reminderInterval); // Stop checking after the reminder is triggered
-            }
-        }
-
-        // Set interval to check the time every minute
-        const reminderInterval = setInterval(checkReminder, 60000);
-    });
-
+    
     
     // List of motivational quotes
     const quotes = [
@@ -44,20 +16,30 @@
         "Success doesn’t just find you. You have to go out and get it.",
         "Dream it. Wish it. Do it.",
         "Don’t stop when you’re tired. Stop when you’re done.",
-        "It always seems impossible until it’s done. – Nelson Mandela"
+        "It always seems impossible until it’s done. – Nelson Mandela",
+        "The best way to predict the future is to create it.",
+        "Believe you can and you're halfway there.",
+        "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+        "You miss 100% of the shots you don't take.",
+        "The only limit to our realization of tomorrow is our doubts of today.",
+        "Don't watch the clock; do what it does. Keep going.",
+        "It always seems impossible until it's done.",
+        "Keep your face always toward the sunshine—and shadows will fall behind you."
     ];
 
-    // Function to get a random quote
-    function getRandomQuote() {
-        const today = new Date().getDate(); // Get the current day of the month
-        const randomIndex = today % quotes.length; // Change the quote daily
-        return quotes[randomIndex];
+    // Function to display a random quote each day
+    function displayDailyQuote() {
+        const today = new Date();
+        const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+
+        // Use the day of the year to select a quote, so it changes daily
+        const quoteOfTheDay = quotes[dayOfYear % quotes.length];
+        document.getElementById('quote-display').textContent = quoteOfTheDay;
     }
 
-    // Display the quote when the page loads
-    document.getElementById('quote-display').textContent = getRandomQuote();
-
-
+    // Call the function to display the daily quote
+    displayDailyQuote();
+    
     // List of daily prayers
     const prayers = [
         "Heavenly Father, I thank You for this new day.",
@@ -166,3 +148,107 @@
         // Clear input
         document.getElementById('water-input').value = '';
     });
+
+    // Initialize hydration level
+    let hydrationLevel = 100;
+    let hydrationInterval;
+
+    // Function to deplete hydration over time
+    function startDehydration() {
+        hydrationInterval = setInterval(function() {
+            hydrationLevel -= 1;
+            if (hydrationLevel <= 0) {
+                hydrationLevel = 0;
+                clearInterval(hydrationInterval);
+                document.getElementById('game-status').textContent = "Game Over! The Dehydration Monster defeated you!";
+                document.getElementById('game-status').style.color = "red";
+            }
+            updateHydrationLevel();
+        }, 1000); // Deplete 1% every second
+    }
+
+    // Function to update hydration level in the UI
+    function updateHydrationLevel() {
+        document.getElementById('hydration-level').textContent = hydrationLevel;
+        document.getElementById('hydration-progress-game').value = hydrationLevel;
+    }
+
+    // Event listener for drinking water buttons
+    const drinkButtons = document.querySelectorAll('.drink-water');
+    drinkButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const waterAmount = parseInt(this.getAttribute('data-water'));
+            hydrationLevel += waterAmount;
+            if (hydrationLevel > 100) hydrationLevel = 100; // Max hydration level is 100%
+
+            updateHydrationLevel();
+
+            if (hydrationLevel >= 100) {
+                clearInterval(hydrationInterval);
+                document.getElementById('game-status').textContent = "You won! You've defeated the Dehydration Monster!";
+                document.getElementById('game-status').style.color = "green";
+            } else {
+                document.getElementById('game-status').textContent = "Keep drinking water to stay hydrated!";
+                document.getElementById('game-status').style.color = "blue";
+            }
+        });
+    });
+
+    // Start the dehydration process
+    startDehydration();
+
+    
+    // Medicine Reminder Form
+    const reminderForm = document.getElementById('medicine-reminder-form');
+    const reminderList = document.getElementById('reminder-list');
+    let reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+
+    // Function to Add Reminder
+    reminderForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const medicineName = document.getElementById('medicine-name').value;
+        const reminderTime = document.getElementById('reminder-time').value;
+
+        const newReminder = {
+            name: medicineName,
+            time: reminderTime
+        };
+
+        reminders.push(newReminder);
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+
+        displayReminders();
+        reminderForm.reset();
+    });
+
+    // Function to Display Reminders
+    function displayReminders() {
+        reminderList.innerHTML = '';
+        reminders.forEach((reminder, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${reminder.name} at ${reminder.time}`;
+            reminderList.appendChild(listItem);
+        });
+    }
+
+    // Function to Check Reminders
+    function checkReminders() {
+        const currentTime = new Date().toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        reminders.forEach(reminder => {
+            if (reminder.time === currentTime) {
+                alert(`Time to take your medicine: ${reminder.name}`);
+            }
+        });
+    }
+
+    // Check reminders every minute
+    setInterval(checkReminders, 60000); // 60,000 ms = 1 minute
+
+    // Display reminders when page loads
+    displayReminders();
+

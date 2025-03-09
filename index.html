@@ -131,12 +131,62 @@
     color: green;
 }
 
+#medicine-reminder-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffebf1;
+    border-radius: 10px;
+}
+
+#medicine-reminder-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#medicine-reminder-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff69b4;
+}
+
+#medicine-reminder-form button {
+    background-color: #ff69b4;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#medicine-reminders-list {
+    margin-top: 20px;
+}
+
+#reminder-list {
+    list-style: none;
+    padding: 0;
+}
+
+#reminder-list li {
+    background-color: #ffe4e1;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
 #daily-quotes {
     margin-top: 20px;
     padding: 20px;
     background-color: #ffe4e1;
     border-radius: 10px;
     text-align: center;
+}
+
+#daily-quotes h2{
+    color: #ff69b4;
 }
 
 #quote-display {
@@ -256,6 +306,38 @@ progress {
     font-weight: bold;
 }
 
+#hydration-game-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffe4e1;
+    border-radius: 10px;
+}
+
+#hydration-meter {
+    margin-bottom: 20px;
+}
+
+#hydration-progress-game {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+#water-options button {
+    margin-right: 10px;
+    padding: 10px;
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#game-status {
+    font-weight: bold;
+    color: blue;
+    margin-top: 20px;
+}
 
     </style>
 </head>
@@ -267,7 +349,7 @@ progress {
             <a href="#sleep-sounds">Sleep Sounds</a>
             <a href="#medicine-reminders">Medicine Reminders</a>
             <a href="#daily-quotes">Daily Quotes</a>
-            <a href="#hydration-tracker">Hydration Tracker</a>
+            <a href="#hydration-section">Hydration Tracker</a>
         </nav>
         <div id="gochyu" style="margin-top: 20px;">
             <img src="https://via.placeholder.com/150" alt="Gochyu - Virtual Nurse">
@@ -297,27 +379,33 @@ progress {
 
             </div>
         </div>
-        <!-- Medicine Reminders Section -->
-<div class="section" id="medicine-reminders">
+     <!-- Medicine Reminder Section -->
+<div class="section" id="medicine-reminder-section">
     <h2>Medicine Reminders</h2>
-    <p>Set a time to get reminders to take your medicine.</p>
-    
-    <form id="reminder-form">
+    <p>Set reminders to take your medicine on time!</p>
+
+    <!-- Form to Add Medicine Reminder -->
+    <form id="medicine-reminder-form">
         <label for="medicine-name">Medicine Name:</label>
-        <input type="text" id="medicine-name" name="medicine-name" required>
+        <input type="text" id="medicine-name" placeholder="Enter medicine name" required>
 
         <label for="reminder-time">Reminder Time:</label>
-        <input type="time" id="reminder-time" name="reminder-time" required>
+        <input type="time" id="reminder-time" required>
 
-        <button type="submit">Set Reminder</button>
+        <button type="submit" class="submit-btn">Add Reminder</button>
     </form>
-    
-    <p id="reminder-status"></p>
+
+    <!-- Display Medicine Reminders -->
+    <div id="medicine-reminders-list">
+        <h3>Your Reminders:</h3>
+        <ul id="reminder-list"></ul>
+    </div>
 </div>
+
 <!-- Daily Quotes Section -->
 <div class="section" id="daily-quotes">
     <h2>Daily Motivational Quote</h2>
-    <p id="quote-display"></p><br>
+    <p id="quote-display">Loading today's quote...</p><br>
 </div>
 <!-- Daily Prayers Section -->
 <div class="section" id="daily-prayers">
@@ -364,6 +452,28 @@ progress {
         <progress id="water-progress" value="0" max="2000"></progress>
         <p id="hydration-message"></p>
     </div>
+</div>
+
+<!-- Hydration Tracker Game Section -->
+<div class="section" id="hydration-game-section">
+    <h2>Hydration Tracker Game</h2>
+    <p>Defeat the Dehydration Monster by keeping your hydration level up!</p>
+    
+    <!-- Hydration Meter -->
+    <div id="hydration-meter">
+        <p>Hydration Level: <span id="hydration-level">100</span>%</p>
+        <progress id="hydration-progress-game" value="100" max="100"></progress>
+    </div>
+    
+    <!-- Water Drinking Buttons -->
+    <div id="water-options">
+        <button class="drink-water" data-water="10">Drink 10 ml</button>
+        <button class="drink-water" data-water="20">Drink 20 ml</button>
+        <button class="drink-water" data-water="50">Drink 50 ml</button>
+    </div>
+    
+    <!-- Game Status -->
+    <p id="game-status">Keep drinking water to stay hydrated!</p>
 </div>
 
 
