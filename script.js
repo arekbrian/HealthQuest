@@ -39,7 +39,7 @@
 
     // Call the function to display the daily quote
     displayDailyQuote();
-    
+
     // List of daily prayers
     const prayers = [
         "Heavenly Father, I thank You for this new day.",
@@ -63,30 +63,75 @@
 
     
     // List of food items with nutritional values
-    const foodDatabase = {
-        "Apple": { calories: 95, fat: 0.3, protein: 0.5 },
-        "Banana": { calories: 105, fat: 0.4, protein: 1.3 },
-        "Bread": { calories: 79, fat: 1, protein: 3 },
-        "Rice": { calories: 206, fat: 0.4, protein: 4.3 },
-        "Chicken": { calories: 165, fat: 3.6, protein: 31 },
-        "Milk": { calories: 103, fat: 2.4, protein: 8 },
-        "Egg": { calories: 78, fat: 5, protein: 6 }
-    };
+    // const foodDatabase = {
+    //     "Apple": { calories: 95, fat: 0.3, protein: 0.5 },
+    //     "Banana": { calories: 105, fat: 0.4, protein: 1.3 },
+    //     "Bread": { calories: 79, fat: 1, protein: 3 },
+    //     "Rice": { calories: 206, fat: 0.4, protein: 4.3 },
+    //     "Chicken": { calories: 165, fat: 3.6, protein: 31 },
+    //     "Milk": { calories: 103, fat: 2.4, protein: 8 },
+    //     "Egg": { calories: 78, fat: 5, protein: 6 }
+    // };
 
-    // Function to analyze food and display the nutritional info
-    document.getElementById('food-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
+    // // Function to analyze food and display the nutritional info
+    // document.getElementById('food-form').addEventListener('submit', function(event) {
+    //     event.preventDefault(); // Prevent form submission
         
-        const foodInput = document.getElementById('food-input').value.trim();
-        const foodInfo = document.getElementById('food-info');
+    //     const foodInput = document.getElementById('food-input').value.trim();
+    //     const foodInfo = document.getElementById('food-info');
         
-        if (foodDatabase[foodInput]) {
-            const food = foodDatabase[foodInput];
-            foodInfo.textContent = `Calories: ${food.calories}, Fat: ${food.fat}g, Protein: ${food.protein}g`;
-        } else {
-            foodInfo.textContent = "Food item not found in the database.";
+    //     if (foodDatabase[foodInput]) {
+    //         const food = foodDatabase[foodInput];
+    //         foodInfo.textContent = `Calories: ${food.calories}, Fat: ${food.fat}g, Protein: ${food.protein}g`;
+    //     } else {
+    //         foodInfo.textContent = "Food item not found in the database.";
+    //     }
+    // });
+
+    
+    // Function to fetch and display food nutritional info
+    async function fetchFoodInfo(food) {
+        const apiKey = 'ebba7931ced9933eb4ead1e7cf8d01fb'; // Replace with your Nutritionix API key
+        const apiUrl = `https://trackapi.nutritionix.com/v2/natural/nutrients`;
+        
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-app-id': '7e908761', // Replace with your app ID
+                'x-app-key': apiKey
+            },
+            body: JSON.stringify({
+                query: food
+            })
+        });
+
+        const data = await response.json();
+        return data.foods[0];
+    }
+
+    // Handle form submission
+    document.getElementById('food-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const foodInput = document.getElementById('food-input').value;
+        const foodInfoDiv = document.getElementById('food-info');
+        
+        try {
+            const foodData = await fetchFoodInfo(foodInput);
+            
+            foodInfoDiv.innerHTML = `
+                <h3>${foodData.food_name}</h3>
+                <p>Calories: ${foodData.nf_calories}</p>
+                <p>Protein: ${foodData.nf_protein}g</p>
+                <p>Carbs: ${foodData.nf_total_carbohydrate}g</p>
+                <p>Fat: ${foodData.nf_total_fat}g</p>
+            `;
+        } catch (error) {
+            foodInfoDiv.innerHTML = `<p>Could not find information for "${foodInput}". Please try again.</p>`;
         }
     });
+
 
     
     // Function to save journal entry

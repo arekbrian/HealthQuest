@@ -339,6 +339,40 @@ progress {
     margin-top: 20px;
 }
 
+#food-analysis-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffe4e1;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#food-analysis-section h2 {
+    color: #ff69b4;
+}
+
+#food-form {
+    margin-bottom: 20px;
+}
+
+#food-input {
+    padding: 10px;
+    border: 2px solid #ff69b4;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#food-info {
+    font-size: 1.1em;
+    color: #333;
+    margin-top: 20px;
+}
+
+#food-info p {
+    margin: 5px 0;
+}
+
+
     </style>
 </head>
 <body>
@@ -414,7 +448,7 @@ progress {
 </div>
 
 <!-- Food Analysis Section -->
-<div class="section" id="food-analysis">
+<!-- <div class="section" id="food-analysis">
     <h2>Food Analysis</h2>
     <form id="food-form">
         <label for="food-input">Enter a food item:</label>
@@ -422,6 +456,20 @@ progress {
         <button type="submit">Analyze</button>
     </form>
     <div id="food-info"></div>
+</div> -->
+
+
+<!-- Food Analysis Section -->
+<div class="section" id="food-analysis-section">
+    <h2>Food Analysis</h2>
+    <form id="food-form">
+        <label for="food-input">Enter a food item:</label>
+        <input type="text" id="food-input" placeholder="e.g., apple" required>
+        <button type="submit">Analyze</button>
+    </form>
+    <div id="food-info">
+        <!-- Food nutritional details will be displayed here -->
+    </div>
 </div>
 
 <!-- Journal Section -->
