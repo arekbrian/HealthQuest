@@ -297,3 +297,80 @@
     // Display reminders when page loads
     displayReminders();
 
+   
+    
+    
+    // Load sound effects
+    const drinkWaterSound = new Audio('sounds/drink-water.mp3');
+    const monsterDefeatedSound = new Audio('sounds/monster-defeated.mp3');
+
+    // Game variables
+    const canvas = document.getElementById('hydration-game-canvas');
+    const ctx = canvas.getContext('2d');
+    const drinkWaterBtn = document.getElementById('drink-water-btn');
+    const hydrationStatus = document.getElementById('hydration-status');
+
+    let playerHydration = 0;   // Player's hydration level
+    let monsterHealth = 100;   // Monster's health
+    let level = 1;             // Game level
+    let hydrationGoal = 100;   // Hydration needed to pass the level
+
+    // Function to draw the game state
+    function drawGame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw player hydration bar
+        ctx.fillStyle = '#00796b';
+        ctx.fillRect(20, 150, playerHydration * 3, 20);  // 1 unit of hydration = 3 pixels
+
+        // Draw monster health bar
+        ctx.fillStyle = '#d32f2f';
+        ctx.fillRect(20, 50, monsterHealth * 3, 20);  // 1 unit of health = 3 pixels
+
+        // Draw labels
+        ctx.font = '16px Arial';
+        ctx.fillStyle = '#000';
+        ctx.fillText('Player Hydration', 20, 140);
+        ctx.fillText('Dehydration Monster Health', 20, 40);
+        ctx.fillText(`Level: ${level}`, 20, 20);
+    }
+
+    // Function to handle drinking water
+    function drinkWater() {
+        if (monsterHealth > 0 && playerHydration < hydrationGoal) {
+            drinkWaterSound.play();  // Play drinking sound
+
+            playerHydration += 10;  // Increase player hydration
+            monsterHealth -= 10;    // Decrease monster health
+
+            hydrationStatus.textContent = `Hydration: ${playerHydration}% - Monster Health: ${monsterHealth}%`;
+
+            // Redraw the game
+            drawGame();
+
+            // Check if the monster is defeated
+            if (monsterHealth <= 0) {
+                monsterDefeatedSound.play();  // Play monster defeated sound
+                hydrationStatus.textContent = 'You defeated the monster! Get ready for the next level.';
+                setTimeout(nextLevel, 2000);  // Move to the next level after a short pause
+            }
+        }
+    }
+
+    // Move to the next level
+    function nextLevel() {
+        level++;
+        hydrationGoal += 20;  // Increase hydration goal by 20% each level
+        monsterHealth = hydrationGoal;  // Increase monster health with the new goal
+        playerHydration = 0;  // Reset player hydration
+
+        hydrationStatus.textContent = `Welcome to Level ${level}. Hydration goal: ${hydrationGoal}%.`;
+        drawGame();
+    }
+
+    // Initialize the game
+    drawGame();
+
+    // Event listener for the button
+    drinkWaterBtn.addEventListener('click', drinkWater);
+

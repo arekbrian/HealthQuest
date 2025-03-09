@@ -372,6 +372,45 @@ progress {
     margin: 5px 0;
 }
 
+#hydration-game-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #e0f7fa;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#hydration-game-section h2 {
+    color: #00796b;
+}
+
+#hydration-game-canvas {
+    border: 2px solid #00796b;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+#drink-water-btn {
+    padding: 10px 20px;
+    background-color: #009688;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+#drink-water-btn:hover {
+    background-color: #004d40;
+}
+
+#hydration-status {
+    font-size: 1.1em;
+    color: #333;
+    margin-top: 10px;
+}
+
+
 
     </style>
 </head>
@@ -503,27 +542,23 @@ progress {
 </div>
 
 <!-- Hydration Tracker Game Section -->
-<div class="section" id="hydration-game-section">
+<!-- <div class="section" id="hydration-game-section">
     <h2>Hydration Tracker Game</h2>
-    <p>Defeat the Dehydration Monster by keeping your hydration level up!</p>
+    <p>Defeat the Dehydration Monster by keeping your hydration level up!</p> -->
     
-    <!-- Hydration Meter -->
+    <!-- Hydration Meter
     <div id="hydration-meter">
         <p>Hydration Level: <span id="hydration-level">100</span>%</p>
         <progress id="hydration-progress-game" value="100" max="100"></progress>
-    </div>
-    
-    <!-- Water Drinking Buttons -->
-    <div id="water-options">
-        <button class="drink-water" data-water="10">Drink 10 ml</button>
-        <button class="drink-water" data-water="20">Drink 20 ml</button>
-        <button class="drink-water" data-water="50">Drink 50 ml</button>
-    </div>
-    
-    <!-- Game Status -->
-    <p id="game-status">Keep drinking water to stay hydrated!</p>
-</div>
+    </div> -->
 
+    <!-- Hydration Tracker Game Section -->
+<div class="section" id="hydration-game-section">
+    <h2>Hydration Tracker Game</h2>
+    <canvas id="hydration-game-canvas" width="400" height="300"></canvas>
+    <button id="drink-water-btn">Drink Water</button>
+    <p id="hydration-status"></p>
+</div>
 
     </main>
 
