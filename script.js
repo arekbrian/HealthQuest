@@ -34,3 +34,27 @@
         const reminderInterval = setInterval(checkReminder, 60000);
     });
 
+    
+    // List of motivational quotes
+    const quotes = [
+        "The only way to do great work is to love what you do. – Steve Jobs",
+        "Success is not how high you have climbed, but how you make a positive difference. – Roy T. Bennett",
+        "You miss 100% of the shots you don’t take. – Wayne Gretzky",
+        "The harder you work for something, the greater you’ll feel when you achieve it.",
+        "Success doesn’t just find you. You have to go out and get it.",
+        "Dream it. Wish it. Do it.",
+        "Don’t stop when you’re tired. Stop when you’re done.",
+        "It always seems impossible until it’s done. – Nelson Mandela"
+    ];
+
+    // Function to get a random quote
+    function getRandomQuote() {
+        const today = new Date().getDate(); // Get the current day of the month
+        const randomIndex = today % quotes.length; // Change the quote daily
+        return quotes[randomIndex];
+    }
+
+    // Display the quote when the page loads
+    document.getElementById('quote-display').textContent = getRandomQuote();
+
+
