@@ -217,6 +217,45 @@
     border-radius: 5px;
 }
 
+#hydration-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #e0f7fa;
+    border-radius: 10px;
+}
+
+#hydration-section input {
+    width: 100px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 2px solid #ff69b4;
+    border-radius: 5px;
+}
+
+#hydration-section button {
+    background-color: #ff69b4;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#hydration-progress {
+    margin-top: 20px;
+}
+
+progress {
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+}
+
+#hydration-message {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
 
     </style>
 </head>
@@ -307,6 +346,26 @@
         <ul id="entry-list"></ul>
     </div>
 </div>
+
+<!-- Hydration Tracker Section -->
+<div class="section" id="hydration-section">
+    <h2>Hydration Tracker</h2>
+    <p>Track your daily water intake. The goal is to drink 8 glasses of water (or 2000 ml) per day.</p>
+    
+    <!-- Input for water intake -->
+    <label for="water-input">Enter water intake (ml):</label>
+    <input type="number" id="water-input" placeholder="Enter ml" min="0">
+    <button id="add-water">Add Water</button>
+    
+    <!-- Display progress -->
+    <div id="hydration-progress">
+        <p>Water intake: <span id="water-intake">0</span> ml</p>
+        <p>Daily Goal: 2000 ml</p>
+        <progress id="water-progress" value="0" max="2000"></progress>
+        <p id="hydration-message"></p>
+    </div>
+</div>
+
 
     </main>
 

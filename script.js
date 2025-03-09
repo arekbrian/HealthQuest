@@ -134,3 +134,35 @@
 
     // Load and display saved entries on page load
     document.addEventListener('DOMContentLoaded', displayJournalEntries);
+
+    
+    // Initialize water intake
+    let totalWaterIntake = 0;
+    const dailyGoal = 2000; // 2000 ml (equivalent to 8 glasses)
+
+    // Function to add water intake
+    document.getElementById('add-water').addEventListener('click', function() {
+        const waterInput = document.getElementById('water-input').value;
+        const waterAmount = parseInt(waterInput);
+
+        if (!isNaN(waterAmount) && waterAmount > 0) {
+            totalWaterIntake += waterAmount;
+
+            // Update UI
+            document.getElementById('water-intake').textContent = totalWaterIntake;
+            document.getElementById('water-progress').value = totalWaterIntake;
+
+            // Display hydration message
+            const hydrationMessage = document.getElementById('hydration-message');
+            if (totalWaterIntake >= dailyGoal) {
+                hydrationMessage.textContent = "Congratulations! You've reached your hydration goal for the day!";
+                hydrationMessage.style.color = "green";
+            } else {
+                hydrationMessage.textContent = `Keep going! You need ${dailyGoal - totalWaterIntake} ml more to reach your goal.`;
+                hydrationMessage.style.color = "blue";
+            }
+        }
+
+        // Clear input
+        document.getElementById('water-input').value = '';
+    });
