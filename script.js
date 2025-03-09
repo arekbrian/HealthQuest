@@ -58,3 +58,26 @@
     document.getElementById('quote-display').textContent = getRandomQuote();
 
 
+    // List of daily prayers
+    const prayers = [
+        "Heavenly Father, I thank You for this new day.",
+        "Lord, grant me the wisdom to face this day with faith and courage.",
+        "Dear God, help me walk in Your light and live a life that reflects Your love.",
+        "God, give me the strength to face any challenges today and trust in Your will.",
+        "Lord, guide me in all that I do today and help me spread kindness to others.",
+        "Heavenly Father, bless me with peace and protect me throughout the day.",
+        "God, may I be a reflection of Your grace and compassion in all my actions."
+    ];
+
+    // Function to get a random prayer
+    function getRandomPrayer() {
+        const today = new Date().getDate(); // Get the current day of the month
+        const randomIndex = today % prayers.length; // Change the prayer daily
+        return prayers[randomIndex];
+    }
+
+    // Display the prayer when the page loads
+    document.getElementById('prayer-display').textContent = getRandomPrayer();
+
+
+
