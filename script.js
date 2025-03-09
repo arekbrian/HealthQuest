@@ -106,6 +106,31 @@
         }
     });
 
+    
+    // Function to save journal entry
+    document.getElementById('save-journal').addEventListener('click', function() {
+        const entry = document.getElementById('journal-entry').value;
+        if (entry.trim()) {
+            const date = new Date().toLocaleString();
+            const journalEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+            journalEntries.push({ date, entry });
+            localStorage.setItem('journalEntries', JSON.stringify(journalEntries));
+            displayJournalEntries();
+            document.getElementById('journal-entry').value = ''; // Clear text area
+        }
+    });
 
+    // Function to display journal entries
+    function displayJournalEntries() {
+        const journalEntries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+        const entryList = document.getElementById('entry-list');
+        entryList.innerHTML = ''; // Clear the list
+        journalEntries.forEach(entry => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${entry.date} - ${entry.entry}`;
+            entryList.appendChild(listItem);
+        });
+    }
 
-
+    // Load and display saved entries on page load
+    document.addEventListener('DOMContentLoaded', displayJournalEntries);
