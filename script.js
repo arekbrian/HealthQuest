@@ -79,5 +79,33 @@
     // Display the prayer when the page loads
     document.getElementById('prayer-display').textContent = getRandomPrayer();
 
+    
+    // List of food items with nutritional values
+    const foodDatabase = {
+        "Apple": { calories: 95, fat: 0.3, protein: 0.5 },
+        "Banana": { calories: 105, fat: 0.4, protein: 1.3 },
+        "Bread": { calories: 79, fat: 1, protein: 3 },
+        "Rice": { calories: 206, fat: 0.4, protein: 4.3 },
+        "Chicken": { calories: 165, fat: 3.6, protein: 31 },
+        "Milk": { calories: 103, fat: 2.4, protein: 8 },
+        "Egg": { calories: 78, fat: 5, protein: 6 }
+    };
+
+    // Function to analyze food and display the nutritional info
+    document.getElementById('food-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        
+        const foodInput = document.getElementById('food-input').value.trim();
+        const foodInfo = document.getElementById('food-info');
+        
+        if (foodDatabase[foodInput]) {
+            const food = foodDatabase[foodInput];
+            foodInfo.textContent = `Calories: ${food.calories}, Fat: ${food.fat}g, Protein: ${food.protein}g`;
+        } else {
+            foodInfo.textContent = "Food item not found in the database.";
+        }
+    });
+
+
 
 

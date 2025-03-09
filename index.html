@@ -11,6 +11,9 @@
             font-family: Arial, sans-serif;
             background-color: #fff0f5;
             color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -75,13 +78,15 @@
         }
 
         footer {
+            margin-top: auto;
             background-color: #ff69b4;
             color: white;
             text-align: center;
-            padding: 15px;
+            padding: 0px;
             position: fixed;
             bottom: 0;
             width: 100%;
+
         }
         #reminder-form {
     margin-top: 20px;
@@ -146,6 +151,22 @@
 
 #prayer-display {
     font-size: 1.2rem;
+    color: #ff69b4;
+    font-weight: bold;
+}
+
+#food-analysis {
+    padding-bottom: 50px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffebcd;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#food-info {
+    margin-top: 10px;
+    font-size: 1.1rem;
     color: #ff69b4;
     font-weight: bold;
 }
@@ -218,6 +239,16 @@
     <p id="prayer-display"></p><br>
 </div>
 
+<!-- Food Analysis Section -->
+<div class="section" id="food-analysis">
+    <h2>Food Analysis</h2>
+    <form id="food-form">
+        <label for="food-input">Enter a food item:</label>
+        <input type="text" id="food-input" placeholder="e.g., Apple, Bread" required>
+        <button type="submit">Analyze</button>
+    </form>
+    <div id="food-info"></div>
+</div>
 
     </main>
 
